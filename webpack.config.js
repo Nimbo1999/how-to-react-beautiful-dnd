@@ -5,75 +5,69 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
-const isProduction = process.env.NODE_ENV == 'production';
+/**
+ * Recebe o nome do styleLoader que vai ser utilizado e gera uma configuração base para o projeto.
+ * @param {string} stylesHandler nome do styleLoader a ser utilizado.
+ * @returns Configuração base para desenvolvimento e produção.
+ */
+const getBaseConfig = stylesHandler => ({
+	entry: './src/index.tsx',
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: '[name].[chunkhash].js',
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: path.join(__dirname, 'public', 'index.html'),
+			inject: 'body',
+			minify: true,
+		}),
+	],
+	module: {
+		rules: [
+			{
+				test: /\.(ts|tsx)$/i,
+				loader: 'ts-loader',
+				exclude: ['/node_modules/'],
+			},
+			{
+				test: /\.less$/i,
+				use: [stylesHandler, 'css-loader', 'postcss-loader', 'less-loader'],
+			},
+			{
+				test: /\.css$/i,
+				use: [stylesHandler, 'css-loader', 'postcss-loader'],
+			},
+			{
+				test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+				type: 'asset',
+			},
+		],
+	},
+	resolve: {
+		extensions: ['.tsx', '.ts', '.js'],
+	},
+});
 
+module.exports = ({ WEBPACK_SERVE }, { mode = 'development' }) => {
+	const isProduction = !WEBPACK_SERVE && mode === 'production';
 
-const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
+	const config = getBaseConfig(isProduction ? MiniCssExtractPlugin.loader : 'style-loader');
 
+	config.mode = mode;
 
+	if (isProduction) {
+		config.plugins.push(new MiniCssExtractPlugin());
 
-const config = {
-    entry: './src/index.tsx',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[chunkhash].js'
-    },
-    devServer: {
-        open: true,
-        host: 'localhost',
-        compress: true,
-        port: 3000
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'public', 'index.html'),
-            inject: 'body',
-            minify: true
-        }),
+		config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
+	} else {
+		config.devServer = {
+			open: true,
+			host: 'localhost',
+			compress: true,
+			port: 3000,
+		};
+	}
 
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-    ],
-    module: {
-        rules: [
-            {
-                test: /\.(ts|tsx)$/i,
-                loader: 'ts-loader',
-                exclude: ['/node_modules/'],
-            },
-            {
-                test: /\.less$/i,
-                use: [stylesHandler, 'css-loader', 'postcss-loader', 'less-loader'],
-            },
-            {
-                test: /\.css$/i,
-                use: [stylesHandler, 'css-loader', 'postcss-loader'],
-            },
-            {
-                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-                type: 'asset',
-            },
-
-            // Add your rules for custom modules here
-            // Learn more about loaders from https://webpack.js.org/loaders/
-        ],
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
-    },
-};
-
-module.exports = () => {
-    if (isProduction) {
-        config.mode = 'production';
-        
-        config.plugins.push(new MiniCssExtractPlugin());
-        
-        
-        config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
-        
-    } else {
-        config.mode = 'development';
-    }
-    return config;
+	return config;
 };
