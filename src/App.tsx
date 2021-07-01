@@ -1,13 +1,7 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
-const App: FC = () => {
-	const [nome] = useState();
+import HeaderComponent from './components/HeaderComponent';
 
-	useEffect(() => {
-		console.log(nome);
-	}, []);
-
-	return <div className="Olá">Hello</div>;
-};
+const App: FC = () => <HeaderComponent />;
 
 export default App;

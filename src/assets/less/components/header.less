@@ -1,0 +1,26 @@
+.header-container {
+	display: flex;
+	padding: .spacing-em(2)[] .spacing-em(4)[];
+	background-color: @color-primary;
+
+	align-items: center;
+
+	h3 {
+		flex: 1;
+		color: @color-white;
+		margin: 0;
+		font-size: 1.5rem;
+	}
+
+	.image-wraper {
+		border-radius: 50%;
+		overflow: hidden;
+		display: flex;
+		height: 60px;
+		width: 60px;
+
+		img {
+			object-fit: cover;
+		}
+	}
+}
