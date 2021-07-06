@@ -1,0 +1,54 @@
+.todo-list-container {
+	flex: 1 0 150px;
+	display: flex;
+	flex-direction: column;
+	gap: .spacing-em(2)[];
+
+	border-color: @color-primary;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: .spacing-em(.5)[];
+	overflow: hidden;
+
+	header {
+		display: flex;
+		justify-content: center;
+
+		padding: .spacing-em(1)[] .spacing-em(2)[];
+
+		color: @color-white;
+		background-color: @color-primary;
+	}
+
+	.todo-list-contents {
+		display: flex;
+		flex-direction: column;
+		gap: .spacing-em(2)[];
+
+		padding: .spacing-em(1)[];
+	}
+
+	&.red {
+		border-color: @color-red;
+
+		header {
+			background-color: @color-red;
+		}
+	}
+
+	&.green {
+		border-color: @color-green;
+
+		header {
+			background-color: @color-green;
+		}
+	}
+
+	&.orange {
+		border-color: @color-orange;
+
+		header {
+			background-color: @color-orange;
+		}
+	}
+}
