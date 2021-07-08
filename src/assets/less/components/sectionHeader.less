@@ -32,3 +32,63 @@
 		padding: 24px .spacing-em(8)[];
 	}
 }
+
+.add-task-modal-form {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: .spacing-em(2)[];
+
+	.content-header{
+		h3 {
+			margin: 0px;
+			color: @color-text-title;
+		}
+	
+		hr {
+			width: 100%;
+		}
+	}
+
+	p {
+		margin: 0px;
+		color: @color-text-paragraph;
+	}
+
+	input, .textarea {
+		appearance: none;
+		outline: none;
+
+		border-radius: .spacing-em(.5)[];
+		padding: .spacing-em(2)[];
+		border: solid 2px @color-text-hint;
+		transition: border-color 250ms linear;
+
+		font-family: @font-family;
+		font-size: 1rem;
+
+		&:active, &:focus {
+			border-color: @color-primary;
+		}
+	}
+
+	.textarea {
+		resize: vertical;
+		flex: 1;
+		display: block;
+	}
+
+	.textarea[contenteditable]:empty::before {
+		content: "Digite aqui a descrição de sua tarefa.";
+		color: @color-text-hint;
+	}
+
+	input::placeholder {
+		color: @color-text-hint;
+	}
+
+	.modal-actions {
+		display: flex;
+		justify-content: flex-end;
+	}
+}
