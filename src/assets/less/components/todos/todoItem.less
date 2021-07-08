@@ -1,0 +1,43 @@
+.todo-item-container {
+	display: flex;
+	flex-direction: column;
+
+	background-color: @color-grey;
+	border: 1px solid @color-tiny-grey;
+	border-radius: .spacing-em(.5)[];
+	padding: .spacing-em(1)[];
+
+	@media screen and (min-width: @break-md) {
+		padding: .spacing-em(2)[];
+	}
+
+	header {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		gap: .spacing-em(1)[];
+
+		padding: 0px;
+
+		background-color: transparent !important;
+
+		h4 {
+			flex: 1;
+			color: @color-text-title;
+			margin: 0px;
+		}
+
+		span {
+			color: @color-text-hint;
+		}
+	}
+
+	.description {
+		color: @color-text-paragraph;
+	}
+
+	footer {
+		display: flex;
+		justify-content: flex-end;
+	}
+}
