@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 
 import TodoItem from './TodoItem';
 
@@ -13,7 +14,13 @@ const TodoList: FC<TodoListProps> = ({ title, todos, color = 'primary' }) => {
 				<span>{title}</span>
 			</header>
 
-			<div className="todo-list-contents">{todos && todos.map(todo => <TodoItem {...todo} />)}</div>
+			<Droppable droppableId={title}>
+				{({ innerRef, droppableProps }) => (
+					<div className="todo-list-contents" ref={innerRef} {...droppableProps}>
+						{todos && todos.map((todo, index) => <TodoItem key={todo.todoId} {...todo} index={index} />)}
+					</div>
+				)}
+			</Droppable>
 		</div>
 	);
 };
