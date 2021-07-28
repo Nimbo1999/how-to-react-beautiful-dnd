@@ -14,23 +14,55 @@ const TodosContainer: FC = () => {
 
 			if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
-			const section = todosSection[source.droppableId];
+			const sectionStart = todosSection[source.droppableId];
+			const sectionFinished = todosSection[destination.droppableId];
 
-			const sourceItem = section.todos[source.index];
+			// Moving from same list
+			if (sectionStart.id === sectionFinished.id) {
+				const sourceItem = sectionStart.todos[source.index];
 
-			const listWithoutSource = [
-				...section.todos.slice(0, source.index),
-				...section.todos.slice(source.index + 1, section.todos.length),
-			];
+				const listWithoutSource = [
+					...sectionStart.todos.slice(0, source.index),
+					...sectionStart.todos.slice(source.index + 1, sectionStart.todos.length),
+				];
 
-			listWithoutSource.splice(destination.index, 0, sourceItem);
+				listWithoutSource.splice(destination.index, 0, sourceItem);
+
+				const newTodosSection = {
+					...todosSection,
+					[source.droppableId]: {
+						...sectionStart,
+						todos: listWithoutSource,
+					},
+				};
+
+				setTodosSection(newTodosSection);
+				return;
+			}
+
+			// Moving from different lists
+
+			// Source list logic
+			const sourceItem = sectionStart.todos[source.index];
+			const startList = Array.from(sectionStart.todos);
+			startList.splice(source.index, 1);
+			const newStartColumn = {
+				...sectionStart,
+				todos: startList,
+			};
+
+			// Destination list logic
+			const finishList = Array.from(sectionFinished.todos);
+			finishList.splice(destination.index, 0, sourceItem);
+			const newFinishColumn = {
+				...sectionFinished,
+				todos: finishList,
+			};
 
 			const newTodosSection = {
 				...todosSection,
-				[source.droppableId]: {
-					...section,
-					todos: listWithoutSource,
-				},
+				[source.droppableId]: newStartColumn,
+				[destination.droppableId]: newFinishColumn,
 			};
 
 			setTodosSection(newTodosSection);
