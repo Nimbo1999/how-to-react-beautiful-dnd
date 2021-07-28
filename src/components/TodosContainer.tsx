@@ -5,7 +5,7 @@ import initialState from '../mock/todosContainerInitialState';
 
 import TodoList from './todos/TodoList';
 
-const TodosContainer: FC = () => {
+const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) => {
 	const [todosSection, setTodosSection] = useState(initialState);
 
 	const updateListA = useCallback(
@@ -71,7 +71,7 @@ const TodosContainer: FC = () => {
 	);
 
 	return (
-		<section className="todos-container">
+		<section className="todos-container" style={{ marginTop: headerOffsetTop }}>
 			<DragDropContext onDragEnd={e => updateListA(e.source, e.destination)}>
 				{Object.keys(todosSection).map(key => (
 					<TodoList key={key} {...todosSection[key]} />

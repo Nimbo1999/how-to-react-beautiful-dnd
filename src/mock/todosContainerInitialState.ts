@@ -42,6 +42,13 @@ const initialState: TodosSection = {
 				description: 'Está sendo preparada',
 				onCancel: () => console.log('fazendo'),
 			},
+			{
+				todoId: 'ee',
+				title: 'Fazendo Task1',
+				date: new Date(),
+				description: 'Está sendo preparada1',
+				onCancel: () => console.log('fazendo1'),
+			},
 		],
 		color: 'orange',
 	},
