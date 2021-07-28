@@ -15,29 +15,32 @@ const TodoItem: FC<TodoItemProps> = ({
 	index = 0,
 	...divProps
 }) => {
-	const classes = ['todo-item-container'];
-
-	if (className) classes.push(className);
-
 	return (
 		<Draggable draggableId={todoId} index={index}>
-			{({ innerRef, draggableProps, dragHandleProps }) => (
-				<div ref={innerRef} className={classes.join(' ')} {...divProps} {...draggableProps} {...dragHandleProps}>
-					<header>
-						<h4>{title}</h4>
+			{({ innerRef, draggableProps, dragHandleProps }, { isDragging }) => {
+				const classes = ['todo-item-container'];
 
-						<span>{date.toLocaleDateString()}</span>
-					</header>
+				if (className) classes.push(className);
+				if (isDragging) classes.push('dragging');
 
-					<p className="description">{description}</p>
+				return (
+					<div ref={innerRef} className={classes.join(' ')} {...divProps} {...draggableProps} {...dragHandleProps}>
+						<header>
+							<h4>{title}</h4>
 
-					<footer>
-						<Button className="red" onClick={onCancel}>
-							Cancelar
-						</Button>
-					</footer>
-				</div>
-			)}
+							<span>{date.toLocaleDateString()}</span>
+						</header>
+
+						<p className="description">{description}</p>
+
+						<footer>
+							<Button className="red" onClick={onCancel}>
+								Cancelar
+							</Button>
+						</footer>
+					</div>
+				);
+			}}
 		</Draggable>
 	);
 };

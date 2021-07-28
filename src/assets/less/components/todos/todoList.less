@@ -2,7 +2,6 @@
 	flex: 1 0 .spacing-em(30)[];
 	display: flex;
 	flex-direction: column;
-	gap: .spacing-em(2)[];
 
 	border-color: @color-primary;
 	border-width: 4px;
@@ -23,11 +22,16 @@
 	}
 
 	.todo-list-contents {
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		gap: .spacing-em(2)[];
 
-		padding: .spacing-em(1)[];
+		padding: .spacing-em(3)[] .spacing-em(1)[] .spacing-em(1)[];
+
+		&.dragging-over {
+			background-color: @color-red;
+		}
 	}
 
 	&.red {

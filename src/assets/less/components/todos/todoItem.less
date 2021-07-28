@@ -7,6 +7,13 @@
 	border-radius: .spacing-em(.5)[];
 	padding: .spacing-em(1)[];
 
+	transition: background-color 250ms linear, border-color 250ms linear;
+
+	&.dragging {
+		background-color: @color-action-dragging;
+		border-color: @color-tiny-grey;
+	}
+
 	@media screen and (min-width: @break-md) {
 		padding: .spacing-em(2)[];
 	}
