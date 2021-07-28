@@ -6,7 +6,7 @@ import TodosContainer from './components/TodosContainer';
 import FooterComponent from './components/FooterComponent';
 
 const App: FC = () => {
-	const mainRef = useRef<HTMLElement>(null);
+	const mainRef = useRef<HTMLElement>(document.createElement('div'));
 
 	const [headerOffsetTop, setHeaderOffsetTop] = useState<number>(0);
 
@@ -16,7 +16,7 @@ const App: FC = () => {
 			const { firstElementChild } = current;
 
 			if (firstElementChild) {
-				setHeaderOffsetTop((firstElementChild as HTMLElement).offsetTop);
+				setHeaderOffsetTop((firstElementChild as HTMLElement).clientHeight);
 			}
 		}
 	}, [mainRef.current]);
