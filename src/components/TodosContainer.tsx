@@ -6,6 +6,7 @@ import selectTodos from '../reducer/todos.selector';
 import { updateTodos } from '../reducer/todo.reducer';
 
 import TodoList from './todos/TodoList';
+import { todosKeys } from '../mock/todosContainerInitialState';
 
 const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) => {
 	const dispatch = useAppDispatch();
@@ -17,8 +18,8 @@ const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) =>
 
 			if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
-			const sectionStart = todos[source.droppableId];
-			const sectionFinished = todos[destination.droppableId];
+			const sectionStart = todos[source.droppableId as todosKeys];
+			const sectionFinished = todos[destination.droppableId as todosKeys];
 
 			// Moving from same list
 			if (sectionStart.id === sectionFinished.id) {
@@ -77,7 +78,7 @@ const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) =>
 		<section className="todos-container" style={{ marginTop: headerOffsetTop }}>
 			<DragDropContext onDragEnd={e => updateListA(e.source, e.destination)}>
 				{Object.keys(todos).map(key => (
-					<TodoList key={key} {...todos[key]} />
+					<TodoList key={key} {...todos[key as todosKeys]} />
 				))}
 			</DragDropContext>
 		</section>

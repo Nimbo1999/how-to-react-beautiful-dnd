@@ -1,6 +1,13 @@
 import { TodoListProps } from '../components/todos/TodoList.types';
 
-export type TodosSection = { [x: string]: TodoListProps };
+export type todosKeys = 'todo' | 'doing' | 'done' | 'canceled';
+
+export interface TodosSection {
+	todo: TodoListProps;
+	doing: TodoListProps;
+	done: TodoListProps;
+	canceled: TodoListProps;
+}
 
 const initialState: TodosSection = {
 	todo: {
