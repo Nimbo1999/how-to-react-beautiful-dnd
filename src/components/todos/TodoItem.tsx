@@ -10,13 +10,11 @@ const TodoItem: FC<TodoItemProps> = ({
 	title,
 	date,
 	description,
-	// onCancel,
 	className,
 	index = 0,
+	onCancel,
 	...divProps
 }) => {
-	const onCancel = () => console.log('teste');
-
 	return (
 		<Draggable draggableId={todoId} index={index}>
 			{({ innerRef, draggableProps, dragHandleProps }, { isDragging }) => {
@@ -36,7 +34,12 @@ const TodoItem: FC<TodoItemProps> = ({
 						<p className="description">{description}</p>
 
 						<footer>
-							<Button className="red" onClick={onCancel}>
+							<Button
+								className="red"
+								onClick={() => {
+									if (onCancel) onCancel({ todoId, title, date, description, index });
+								}}
+							>
 								Cancelar
 							</Button>
 						</footer>
