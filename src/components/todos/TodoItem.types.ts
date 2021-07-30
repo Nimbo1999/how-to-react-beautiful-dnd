@@ -3,9 +3,8 @@ import { HTMLAttributes } from 'react';
 export interface TodoItemModel {
 	todoId: string;
 	title?: string;
-	date: Date;
+	date: string;
 	description: string;
-	onCancel?: () => void;
 	index?: number;
 }
 

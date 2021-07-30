@@ -1,12 +1,15 @@
-import { FC, useState, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { DragDropContext, DraggableLocation } from 'react-beautiful-dnd';
 
-import initialState from '../mock/todosContainerInitialState';
+import { useAppSelector, useAppDispatch } from '../store';
+import selectTodos from '../reducer/todos.selector';
+import { updateTodos } from '../reducer/todo.reducer';
 
 import TodoList from './todos/TodoList';
 
 const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) => {
-	const [todosSection, setTodosSection] = useState(initialState);
+	const dispatch = useAppDispatch();
+	const todos = useAppSelector(selectTodos);
 
 	const updateListA = useCallback(
 		(source: DraggableLocation, destination: DraggableLocation | undefined) => {
@@ -14,8 +17,8 @@ const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) =>
 
 			if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
-			const sectionStart = todosSection[source.droppableId];
-			const sectionFinished = todosSection[destination.droppableId];
+			const sectionStart = todos[source.droppableId];
+			const sectionFinished = todos[destination.droppableId];
 
 			// Moving from same list
 			if (sectionStart.id === sectionFinished.id) {
@@ -29,14 +32,14 @@ const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) =>
 				listWithoutSource.splice(destination.index, 0, sourceItem);
 
 				const newTodosSection = {
-					...todosSection,
+					...todos,
 					[source.droppableId]: {
 						...sectionStart,
 						todos: listWithoutSource,
 					},
 				};
 
-				setTodosSection(newTodosSection);
+				dispatch(updateTodos(newTodosSection));
 				return;
 			}
 
@@ -60,21 +63,21 @@ const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) =>
 			};
 
 			const newTodosSection = {
-				...todosSection,
+				...todos,
 				[source.droppableId]: newStartColumn,
 				[destination.droppableId]: newFinishColumn,
 			};
 
-			setTodosSection(newTodosSection);
+			dispatch(updateTodos(newTodosSection));
 		},
-		[todosSection]
+		[todos, dispatch]
 	);
 
 	return (
 		<section className="todos-container" style={{ marginTop: headerOffsetTop }}>
 			<DragDropContext onDragEnd={e => updateListA(e.source, e.destination)}>
-				{Object.keys(todosSection).map(key => (
-					<TodoList key={key} {...todosSection[key]} />
+				{Object.keys(todos).map(key => (
+					<TodoList key={key} {...todos[key]} />
 				))}
 			</DragDropContext>
 		</section>

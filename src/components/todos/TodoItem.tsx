@@ -10,11 +10,13 @@ const TodoItem: FC<TodoItemProps> = ({
 	title,
 	date,
 	description,
-	onCancel,
+	// onCancel,
 	className,
 	index = 0,
 	...divProps
 }) => {
+	const onCancel = () => console.log('teste');
+
 	return (
 		<Draggable draggableId={todoId} index={index}>
 			{({ innerRef, draggableProps, dragHandleProps }, { isDragging }) => {
@@ -28,7 +30,7 @@ const TodoItem: FC<TodoItemProps> = ({
 						<header>
 							<h4>{title}</h4>
 
-							<span>{date.toLocaleDateString()}</span>
+							<span>{new Date(date).toLocaleDateString()}</span>
 						</header>
 
 						<p className="description">{description}</p>

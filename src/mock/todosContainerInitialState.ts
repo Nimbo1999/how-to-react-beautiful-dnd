@@ -1,6 +1,6 @@
 import { TodoListProps } from '../components/todos/TodoList.types';
 
-type TodosSection = { [x: string]: TodoListProps };
+export type TodosSection = { [x: string]: TodoListProps };
 
 const initialState: TodosSection = {
 	todo: {
@@ -10,23 +10,20 @@ const initialState: TodosSection = {
 			{
 				todoId: 'aa',
 				title: 'Nova task',
-				date: new Date(),
+				date: new Date().toISOString(),
 				description: 'descrição da task',
-				onCancel: () => console.log('click'),
 			},
 			{
 				todoId: 'bb',
 				title: 'Nova task2',
-				date: new Date(),
+				date: new Date().toISOString(),
 				description: 'descrição da task2',
-				onCancel: () => console.log('click2'),
 			},
 			{
 				todoId: 'cc',
 				title: 'Nova task3',
-				date: new Date(),
+				date: new Date().toISOString(),
 				description: 'descrição da task3',
-				onCancel: () => console.log('click3'),
 			},
 		],
 		color: 'green',
@@ -38,16 +35,14 @@ const initialState: TodosSection = {
 			{
 				todoId: 'dd',
 				title: 'Fazendo Task',
-				date: new Date(),
+				date: new Date().toISOString(),
 				description: 'Está sendo preparada',
-				onCancel: () => console.log('fazendo'),
 			},
 			{
 				todoId: 'ee',
 				title: 'Fazendo Task1',
-				date: new Date(),
+				date: new Date().toISOString(),
 				description: 'Está sendo preparada1',
-				onCancel: () => console.log('fazendo1'),
 			},
 		],
 		color: 'orange',
