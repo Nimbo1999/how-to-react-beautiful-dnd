@@ -3,10 +3,9 @@ import { DragDropContext, DraggableLocation } from 'react-beautiful-dnd';
 
 import { useAppSelector, useAppDispatch } from '../store';
 import selectTodos from '../reducer/todos.selector';
-import { updateTodos } from '../reducer/todo.reducer';
+import { updateTodos, todosKeys } from '../reducer/todo.reducer';
 
 import TodoList from './todos/TodoList';
-import { todosKeys } from '../mock/todosContainerInitialState';
 
 const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) => {
 	const dispatch = useAppDispatch();
@@ -77,9 +76,7 @@ const TodosContainer: FC<{ headerOffsetTop: number }> = ({ headerOffsetTop }) =>
 	return (
 		<section className="todos-container" style={{ marginTop: headerOffsetTop }}>
 			<DragDropContext onDragEnd={e => updateListA(e.source, e.destination)}>
-				{Object.keys(todos).map(key => (
-					<TodoList key={key} {...todos[key as todosKeys]} />
-				))}
+				{Object.keys(todos).map(key => key !== '_persist' && <TodoList key={key} {...todos[key as todosKeys]} />)}
 			</DragDropContext>
 		</section>
 	);

@@ -1,4 +1,5 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { persistStore } from 'redux-persist';
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 
@@ -16,4 +17,6 @@ type AppDispatch = typeof store.dispatch;
 const useAppDispatch = () => useDispatch<AppDispatch>();
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-export { store as default, RootState, AppDispatch, useAppDispatch, useAppSelector };
+const persistor = persistStore(store);
+
+export { store as default, persistor, RootState, AppDispatch, useAppDispatch, useAppSelector };

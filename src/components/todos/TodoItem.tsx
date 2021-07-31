@@ -41,7 +41,7 @@ const TodoItem: FC<TodoItemProps> = ({
 	useEffect(() => {
 		const timer = !!countdown && countdown > 0 && setInterval(() => setCountdown(countdown - 1000), 1000);
 
-		if (countdown === 0) {
+		if (!!countdown && countdown <= 0) {
 			dispatch(deleteCanceledTodo({ todoId, title, date, expiresAt, description }));
 		}
 
