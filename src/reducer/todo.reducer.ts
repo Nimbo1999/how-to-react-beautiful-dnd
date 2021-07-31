@@ -21,22 +21,33 @@ const todosSlice = createSlice({
 			const indexOfTodo = state[sectionId as todosKeys].todos.findIndex(element => element.todoId === payload.todoId);
 
 			const removedItem = state[sectionId as todosKeys].todos[indexOfTodo];
-
 			removedItem.expiresAt = dayjs().add(1, 'hour').toISOString();
 
 			state[sectionId as todosKeys].todos.splice(indexOfTodo, 1);
 
 			state.canceled.todos.push(removedItem);
 		},
-		deleteTodo: (state: TodosSection, action: PayloadAction<TodoItemModel>) => {
+		deleteCanceledTodo: (state: TodosSection, action: PayloadAction<TodoItemModel>) => {
 			const { payload } = action;
 
 			const indexOfTodo = state.canceled.todos.findIndex(element => element.todoId === payload.todoId);
 			state.canceled.todos.splice(indexOfTodo, 1);
 		},
+		restoreCanceledTodo: (state: TodosSection, action: PayloadAction<TodoItemModel>) => {
+			const { payload } = action;
+
+			const indexOfTodo = state.canceled.todos.findIndex(element => element.todoId === payload.todoId);
+
+			const targetTodo = state.canceled.todos[indexOfTodo];
+			targetTodo.expiresAt = undefined;
+
+			state.canceled.todos.splice(indexOfTodo, 1);
+
+			state.todo.todos.push(targetTodo);
+		},
 	},
 });
 
-export const { updateTodos, addTodo, cancelTodo, deleteTodo } = todosSlice.actions;
+export const { updateTodos, addTodo, cancelTodo, deleteCanceledTodo, restoreCanceledTodo } = todosSlice.actions;
 
 export default todosSlice.reducer;

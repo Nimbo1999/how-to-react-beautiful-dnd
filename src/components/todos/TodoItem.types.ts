@@ -12,5 +12,4 @@ export interface TodoItemModel {
 export interface TodoItemProps extends HTMLAttributes<HTMLDivElement>, TodoItemModel {
 	index?: number;
 	onCancel?: (todo: TodoItemModel) => void;
-	onRestore?: (todo: TodoItemModel) => void;
 }

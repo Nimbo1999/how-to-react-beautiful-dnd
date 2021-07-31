@@ -1,9 +1,9 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import dayjs from 'dayjs';
 
-import { deleteTodo } from '../../reducer/todo.reducer';
+import { deleteCanceledTodo, restoreCanceledTodo } from '../../reducer/todo.reducer';
 
 import Button from '../Button';
 
@@ -19,12 +19,16 @@ const TodoItem: FC<TodoItemProps> = ({
 	className,
 	index = 0,
 	onCancel,
-	onRestore,
 	expiresAt,
 	...divProps
 }) => {
 	const dispatch = useDispatch();
 	const [countdown, setCountdown] = useState<number>();
+
+	const onRestore = useCallback(
+		() => dispatch(restoreCanceledTodo({ todoId, title, date, expiresAt, description })),
+		[dispatch]
+	);
 
 	useEffect(() => {
 		if (expiresAt) {
@@ -38,7 +42,7 @@ const TodoItem: FC<TodoItemProps> = ({
 		const timer = !!countdown && countdown > 0 && setInterval(() => setCountdown(countdown - 1000), 1000);
 
 		if (countdown === 0) {
-			dispatch(deleteTodo({ todoId, title, date, expiresAt, description }));
+			dispatch(deleteCanceledTodo({ todoId, title, date, expiresAt, description }));
 		}
 
 		return () => {
@@ -80,11 +84,7 @@ const TodoItem: FC<TodoItemProps> = ({
 
 						{expiresAt && (
 							<footer>
-								<Button
-									onClick={() => {
-										if (onRestore) onRestore({ todoId, title, date, description });
-									}}
-								>
+								<Button onClick={onRestore}>
 									Restaurar{' — '}
 									{!!countdown && dayjs.duration(countdown).format(countdown === 3600000 ? 'H:mm:ss' : 'mm:ss')}
 								</Button>
