@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import { ButtonHTMLAttributes, forwardRef, ForwardedRef } from 'react';
+import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 const Button = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>>(
 	({ children, className, type = 'button', ...buttonProps }, ref) => {

@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import dayjs from 'dayjs';
+
 import { TodoItemModel } from '../components/todos/TodoItem.types';
 
 import initialState, { TodosSection, todosKeys } from '../mock/todosContainerInitialState';
@@ -20,13 +22,21 @@ const todosSlice = createSlice({
 
 			const removedItem = state[sectionId as todosKeys].todos[indexOfTodo];
 
+			removedItem.expiresAt = dayjs().add(1, 'hour').toISOString();
+
 			state[sectionId as todosKeys].todos.splice(indexOfTodo, 1);
 
 			state.canceled.todos.push(removedItem);
 		},
+		deleteTodo: (state: TodosSection, action: PayloadAction<TodoItemModel>) => {
+			const { payload } = action;
+
+			const indexOfTodo = state.canceled.todos.findIndex(element => element.todoId === payload.todoId);
+			state.canceled.todos.splice(indexOfTodo, 1);
+		},
 	},
 });
 
-export const { updateTodos, addTodo, cancelTodo } = todosSlice.actions;
+export const { updateTodos, addTodo, cancelTodo, deleteTodo } = todosSlice.actions;
 
 export default todosSlice.reducer;

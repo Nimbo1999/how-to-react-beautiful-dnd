@@ -6,8 +6,11 @@ export interface TodoItemModel {
 	title?: string;
 	date: string;
 	description: string;
-	index?: number;
-	onCancel?: (todo: TodoItemModel) => void;
+	expiresAt?: string;
 }
 
-export interface TodoItemProps extends HTMLAttributes<HTMLDivElement>, TodoItemModel {}
+export interface TodoItemProps extends HTMLAttributes<HTMLDivElement>, TodoItemModel {
+	index?: number;
+	onCancel?: (todo: TodoItemModel) => void;
+	onRestore?: (todo: TodoItemModel) => void;
+}
