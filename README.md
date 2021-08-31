@@ -1,15 +1,29 @@
-# 🚀 Welcome to your new awesome project!
+# Example of how to use the library [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) with typescript.
 
-This project has been created using **webpack-cli**, you can now run
+This project has been created using **webpack-cli** and it's an example of how to implement this library in your project.
+<hr />
+
+## How to setup this project <br/>
+You can install this project in your machine by clone this repository and install dependencies with:
 
 ```
-npm run build
+npm install
 ```
 
 or
 
 ```
-yarn build
+yarn
 ```
 
-to bundle your application
+Run project with:
+
+```
+npm start
+```
+
+or
+
+```
+yarn start
+```
