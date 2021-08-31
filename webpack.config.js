@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 /**
  * Recebe o nome do styleLoader que vai ser utilizado e gera uma configuração base para o projeto.
@@ -58,6 +59,12 @@ module.exports = ({ WEBPACK_SERVE }, { mode = 'development' }) => {
 
 	if (isProduction) {
 		config.plugins.push(new MiniCssExtractPlugin());
+
+		config.plugins.push(
+			new CopyPlugin({
+				patterns: [{ from: path.join(__dirname, 'public', 'meta.json'), to: path.join(__dirname, 'dist') }],
+			})
+		);
 
 		config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
 	} else {
