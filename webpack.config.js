@@ -9,13 +9,14 @@ const CopyPlugin = require('copy-webpack-plugin');
 /**
  * Recebe o nome do styleLoader que vai ser utilizado e gera uma configuração base para o projeto.
  * @param {string} stylesHandler nome do styleLoader a ser utilizado.
- * @returns Configuração base para desenvolvimento e produção.
+ * @returns {import('webpack').Configuration} Configuração base para desenvolvimento e produção.
  */
 const getBaseConfig = stylesHandler => ({
 	entry: './src/index.tsx',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: '[name].[chunkhash].js',
+		publicPath: '/',
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -57,14 +58,14 @@ module.exports = ({ WEBPACK_SERVE }, { mode = 'development' }) => {
 
 	config.mode = mode;
 
+	config.plugins.push(
+		new CopyPlugin({
+			patterns: [{ from: path.join(__dirname, 'public', 'meta.json'), to: path.join(__dirname, 'dist') }],
+		})
+	);
+
 	if (isProduction) {
 		config.plugins.push(new MiniCssExtractPlugin());
-
-		config.plugins.push(
-			new CopyPlugin({
-				patterns: [{ from: path.join(__dirname, 'public', 'meta.json'), to: path.join(__dirname, 'dist') }],
-			})
-		);
 
 		config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
 	} else {

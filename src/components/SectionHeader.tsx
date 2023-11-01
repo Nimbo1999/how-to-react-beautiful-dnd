@@ -42,28 +42,28 @@ const SectionHeader: FC = () => {
 			<div className="title-and-subtitle">
 				<h3>Todo List</h3>
 
-				<span>Cadastre novos itens para realizar e mova-os conforme desejar.</span>
+				<span>Register new items to perform and move them as you wish.</span>
 			</div>
 
-			<Button onClick={() => setIsOpen(true)}>Cadastrar tarefa</Button>
+			<Button onClick={() => setIsOpen(true)}>Register todo</Button>
 
 			<ModalComponent isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
 				<form className="add-task-modal-form" onSubmit={handleOnSubmit}>
 					<div className="content-header">
-						<h3>Cadastrar nova tarefa</h3>
+						<h3>Register new todo</h3>
 
 						<hr />
 					</div>
 
-					<p>Quando você criar uma tarefa, ela vai aparecer dentro da seção &apos;A fazer&lsquo;.</p>
+					<p>When you create a task, it will appear within the &apos;To Do&lsquo; section.</p>
 
-					<input type="text" placeholder="Título da tarefa" value={title} onChange={e => setTitle(e.target.value)} />
+					<input type="text" placeholder="Todo title" value={title} onChange={e => setTitle(e.target.value)} />
 
 					<span
 						className="textarea"
 						role="textbox"
 						contentEditable
-						aria-label="Descrição da tarefa"
+						aria-label="Todo description"
 						onInput={e => {
 							const { textContent } = e.target as HTMLSpanElement;
 
@@ -79,7 +79,7 @@ const SectionHeader: FC = () => {
 
 					<div className="modal-actions">
 						<Button type="submit" ref={buttonRef}>
-							Criar tarefa
+							Create todo
 						</Button>
 					</div>
 				</form>

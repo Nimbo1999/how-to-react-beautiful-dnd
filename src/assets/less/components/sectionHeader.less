@@ -5,17 +5,17 @@
 	align-items: center;
 	justify-content: space-between;
 	flex-wrap: wrap;
-	gap: .spacing-em(2)[];
+	gap: .spacing-em(2) [];
 
 	width: 100%;
-	padding: .spacing-em(3)[];
+	padding: .spacing-em(3) [];
 	background-color: @body-bg;
 
-	.title-and-subtitle{
+	.title-and-subtitle {
 		flex: 1 0 100%;
 
 		h3 {
-			margin: 0px 0px .spacing-em(1)[];
+			margin: 0px 0px .spacing-em(1) [];
 			color: @color-text-title;
 		}
 
@@ -29,11 +29,11 @@
 	}
 
 	@media screen and (min-width: @break-md) {
-		padding: 24px .spacing-em(4)[];
+		padding: 24px .spacing-em(4) [];
 	}
 
 	@media screen and (min-width: @break-lg) {
-		padding: 24px .spacing-em(8)[];
+		padding: 24px .spacing-em(8) [];
 	}
 }
 
@@ -41,14 +41,14 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	gap: .spacing-em(2)[];
+	gap: .spacing-em(2) [];
 
-	.content-header{
+	.content-header {
 		h3 {
 			margin: 0px;
 			color: @color-text-title;
 		}
-	
+
 		hr {
 			width: 100%;
 		}
@@ -59,19 +59,21 @@
 		color: @color-text-paragraph;
 	}
 
-	input, .textarea {
+	input,
+	.textarea {
 		appearance: none;
 		outline: none;
 
-		border-radius: .spacing-em(.5)[];
-		padding: .spacing-em(2)[];
+		border-radius: .spacing-em(0.5) [];
+		padding: .spacing-em(2) [];
 		border: solid 2px @color-text-hint;
 		transition: border-color 250ms linear;
 
 		font-family: @font-family;
 		font-size: 1rem;
 
-		&:active, &:focus {
+		&:active,
+		&:focus {
 			border-color: @color-primary;
 		}
 	}
@@ -83,7 +85,7 @@
 	}
 
 	.textarea[contenteditable]:empty::before {
-		content: "Digite aqui a descrição de sua tarefa.";
+		content: 'Type the description of your todo';
 		color: @color-text-hint;
 	}
 

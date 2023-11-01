@@ -54,6 +54,11 @@ function withClearCache(Component: FC) {
 					} else {
 						setIsLatestBuildDate(true);
 					}
+				})
+				.catch(err => {
+					console.error('Could not retrieve the latest build information');
+					console.error(err);
+					setIsLatestBuildDate(true);
 				});
 		}, []);
 

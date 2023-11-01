@@ -20,24 +20,24 @@ export interface TodosReducer {
 const initialState: TodosReducer = {
 	todo: {
 		id: 'todo',
-		title: 'A fazer',
+		title: 'To do',
 		todos: [],
 		color: 'green',
 	},
 	doing: {
 		id: 'doing',
-		title: 'Fazendo',
+		title: 'In progress',
 		todos: [],
 		color: 'orange',
 	},
 	done: {
 		id: 'done',
-		title: 'Feito',
+		title: 'Done',
 		todos: [],
 	},
 	canceled: {
 		id: 'canceled',
-		title: 'Cancelado',
+		title: 'Canceled',
 		todos: [],
 		color: 'red',
 	},

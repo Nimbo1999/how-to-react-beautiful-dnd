@@ -53,6 +53,7 @@
         "mini-css-extract-plugin": "^1.6.0",
         "postcss-loader": "^6.1.0",
         "prettier": "2.3.1",
+        "serve": "^14.2.1",
         "style-loader": "^2.0.0",
         "ts-loader": "^9.2.3",
         "typescript": "^4.3.2",
@@ -61,5 +62,5 @@
         "webpack-dev-server": "^3.11.2",
         "workbox-webpack-plugin": "^6.1.5"
     },
-    "buildDate": 1630428263287
+    "buildDate": 1698848191085
 }
